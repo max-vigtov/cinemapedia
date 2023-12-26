@@ -12,18 +12,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  const Scaffold(
+      bottomNavigationBar: CustomBottomNavigationBar(),
       body: Center(
-        child: _HomeView()
+        child: _HomeView(),              
       )
+    
     );
   }
 }
 
 class _HomeView extends ConsumerStatefulWidget {
-  const _HomeView({
-    super.key,
-  });
+  const _HomeView();
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -34,15 +34,15 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 @override
   void initState() {
     super.initState();
-
+  
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    //final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final slideShowMovies =  ref.watch(moviesSlideShowProvider);
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final slideShowMovies = ref.watch(moviesSlideShowProvider);
 
     if( slideShowMovies.isEmpty ) return const CircularProgressIndicator();
 
@@ -50,7 +50,13 @@ class _HomeViewState extends ConsumerState<_HomeView> {
       children: [
         const CustomAppBar(),
 
-        MoviesSlideShow(movies: slideShowMovies)
+        MoviesSlideShow(movies: slideShowMovies),
+
+        MovieHorizontalListview(
+          movies: nowPlayingMovies,
+          title: 'En cines',
+          subTitle: 'Lunes 20',
+          )
       ],
     );
   
