@@ -46,20 +46,58 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     if( slideShowMovies.isEmpty ) return const CircularProgressIndicator();
 
-    return Column(
-      children: [
-        const CustomAppBar(),
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: Flexible(
+            child: CustomAppBar()
+            ),
+        ),
 
-        MoviesSlideShow(movies: slideShowMovies),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+                return Column(
+        children: [
+              
+          MoviesSlideShow(movies: slideShowMovies),
+      
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'En cines',
+            subTitle: 'Lunes 20',
+            loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+            
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Proxímamente',
+            subTitle: 'En este mes',
+            loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+      
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Populares',
+            loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+      
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Mejor calificadas',
+            subTitle: 'Desde Siempre',
+            loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
 
-        MovieHorizontalListview(
-          movies: nowPlayingMovies,
-          title: 'En cines',
-          subTitle: 'Lunes 20',
-          loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
-          ),
-      ],
+            const SizedBox(height: 50,)
+                  ],
+                );
+            },
+            childCount: 1        
+          )
+        )
+      ]
     );
-  
   }
 }
