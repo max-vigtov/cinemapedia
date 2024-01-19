@@ -8,7 +8,8 @@ class MovieHorizontalListview extends StatefulWidget {
     super.key, 
     required this.movies, 
     this.title, 
-    this.subTitle, this.loadNextPage
+    this.subTitle, 
+    this.loadNextPage
     });
 
   final List<Movie> movies;
@@ -60,7 +61,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemBuilder:(context, index) {
-                return _Slide(movie: widget.movies[index]);
+                return FadeInRight(child: _Slide(movie: widget.movies[index]));
               },
             )
           )
@@ -130,7 +131,6 @@ class _Slide extends StatelessWidget {
     );
   }
 }
-
 
 class _Title extends StatelessWidget {
   const _Title({this.title, this.subTitle});
