@@ -175,7 +175,7 @@ class _CustomSliverAppBar extends StatelessWidget {
           ],
          ),
         )
-      );
+    );
   }
 }
 
@@ -217,8 +217,7 @@ class _ActorsByMovie extends ConsumerWidget {
                       height: 180,
                       width: 135,
                       fit: BoxFit.cover,
-                    ),
-                  
+                    ),                  
                   ),
                 ),
 
