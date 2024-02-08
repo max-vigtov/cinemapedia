@@ -90,7 +90,6 @@ class MoviedbDatasource extends MoviesDataSource {
       }
     );    
    
-    throw UnimplementedError();
+    return _jsonToMovies(response.data);
   }
-
 }
