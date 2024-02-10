@@ -16,7 +16,7 @@ class MovieMappper {
       popularity:moviedb. popularity,
       posterPath: (moviedb.posterPath != '')
       ? 'https://image.tmdb.org/t/p/w500/${ moviedb.posterPath }'
-      : 'no-poster',
+      : 'https://www.movienewz.com/img/films/poster-holder.jpg',
       releaseDate: moviedb. releaseDate != null ? moviedb.releaseDate! : DateTime.now(),
       title:moviedb. title,
       video:moviedb. video,
