@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
@@ -72,11 +71,8 @@ class SearchMovieDelegate extends SearchDelegate <Movie?>{
 
     _onQueryChanged(query);
     return StreamBuilder(
-      //future: searchMovies(query),
       stream: debounceMovies.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-        //print('Realizando peticion');
 
         final movies = snapshot.data ?? [];
 
@@ -88,7 +84,7 @@ class SearchMovieDelegate extends SearchDelegate <Movie?>{
               clearStreams();
               close(context, movie);
             }
-           );        
+           );
           },
         );
       },
