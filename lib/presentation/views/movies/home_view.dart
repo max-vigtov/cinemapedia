@@ -3,7 +3,6 @@ import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
@@ -83,8 +82,8 @@ class HomeViewState extends ConsumerState<HomeView> {
               ),
 
               const SizedBox(height: 10,)
-                  ],
-                );
+                ],
+              );
             },
             childCount: 1        
           )

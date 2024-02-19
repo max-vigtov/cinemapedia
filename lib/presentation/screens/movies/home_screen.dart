@@ -10,15 +10,15 @@ class HomeScreen extends StatelessWidget {
    HomeScreen({super.key, required this.pageIndex});
 
 final viewRoutes = <Widget> [
-  HomeView(),
-  SizedBox(),
-  FavoritesView()
+  const HomeView(),
+  const SizedBox(),
+  const FavoritesView()
 ];
 
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar:  CustomBottomNavigationBar(currentIndex: pageIndex,),
       body: IndexedStack(
         index: pageIndex,
         children: viewRoutes,

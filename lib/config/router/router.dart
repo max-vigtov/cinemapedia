@@ -9,7 +9,6 @@ final approuter = GoRouter(
       name: HomeScreen.name,
       builder: (context, state) {
         final pageIndex = state.pathParameters['page'] ?? '0';
-
         return  HomeScreen(pageIndex: int.parse(pageIndex),);
       },
       routes: [
@@ -23,5 +22,10 @@ final approuter = GoRouter(
         ) 
       ]
     ),
+
+    GoRoute(
+      path: '/',
+      redirect:(_, __) => '/home/0',
+    )
   ]
 );
