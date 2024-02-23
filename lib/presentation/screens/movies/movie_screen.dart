@@ -23,7 +23,6 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
     super.initState();
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
     ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
-
   }
 
   @override
@@ -114,18 +113,36 @@ class _MovieDetails extends StatelessWidget {
   }
 }
 
-class _CustomSliverAppBar extends StatelessWidget {
+final isFavoriteProvider = FutureProvider.family.autoDispose((ref, int movieId) async {
+  final localStorageRepository = ref.watch(localStorageRepositoryProvider);
+  return localStorageRepository.isMovieFavorite(movieId);
+});
+
+
+class _CustomSliverAppBar extends ConsumerWidget {
   const _CustomSliverAppBar({required this.movie});
 
   final Movie movie;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final isFavoriteFuture = ref.watch(isFavoriteProvider(movie.id));
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       actions: [
-        IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border))
-        //IconButton(onPressed: (){}, icon:Icon(Icons.favorite_rounded), color: Colors.red,)
+        IconButton(onPressed: (){
+          
+          ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+
+          ref.invalidate(isFavoriteProvider);
+
+        }, icon: isFavoriteFuture.when(
+          loading: () => const CircularProgressIndicator(strokeWidth: 2,),
+          data: (isFavorite) => isFavorite
+          ? const Icon(Icons.favorite_rounded, color: Colors.red,)
+          : const Icon(Icons.favorite_border),
+          error: (_, __) => throw UnimplementedError()  )
+        )
       ],
       backgroundColor: Colors.black,
       expandedHeight: size.height * .7,
@@ -210,7 +227,6 @@ class _ActorsByMovie extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 FadeInRight(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -219,7 +235,7 @@ class _ActorsByMovie extends ConsumerWidget {
                       height: 180,
                       width: 135,
                       fit: BoxFit.cover,
-                    ),                  
+                    ),
                   ),
                 ),
 
