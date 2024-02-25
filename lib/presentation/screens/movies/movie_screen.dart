@@ -130,9 +130,10 @@ class _CustomSliverAppBar extends ConsumerWidget {
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       actions: [
-        IconButton(onPressed: (){
+        IconButton(onPressed: () async{
           
-          ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+         // ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+          await ref.read(favoritesMoviesProvider.notifier).toggleFavorite(movie);
 
           ref.invalidate(isFavoriteProvider);
 

@@ -17,7 +17,7 @@ final viewRoutes = <Widget> [
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       bottomNavigationBar:  CustomBottomNavigationBar(currentIndex: pageIndex,),
       body: IndexedStack(
         index: pageIndex,
